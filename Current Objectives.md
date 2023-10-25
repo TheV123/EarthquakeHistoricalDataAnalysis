@@ -7,7 +7,7 @@
 
 Questions
 * Is it possible to expand the time intervals of ETAS?
-  * No
+  * No??
 
 ##  Comparing ETAS to Real data
 * Is ETAS showing similar data?
@@ -18,6 +18,8 @@ Questions
 * Time series - trends with the number of eathquakes
 * Looking at how long earthquake multiplicity decreases until a spike happens
   * Compare USGS and ETAS Data
+  * Can we look at the time between large earthquakes for different regions?
+  * Can we give an estimate to the time until the next large earthquake?
 
 
 ## Fixing issue of Aftershock
