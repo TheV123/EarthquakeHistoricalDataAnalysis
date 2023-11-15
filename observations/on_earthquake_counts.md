@@ -12,4 +12,6 @@ Plotting the graphs on top of each other shows the trend more clearly
 
 When looking at the location of earthquakes on the days of high earthquake counts we can see that these earthquakes are generally clustered in the same area - i will have to make improvements to the graph to see if they are in a similar date but currently I just added a hover feature
 
+The charts on location after high earthquake counts/magnitudes seem largely similar, reaffirming my hypothesis that they are linked together
+
 - Vishal
