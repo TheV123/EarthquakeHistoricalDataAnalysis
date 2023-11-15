@@ -10,7 +10,6 @@ When looking at time periods of 1 week before and after a day of high earthquake
 
 Plotting the graphs on top of each other shows the trend more clearly
 
-When looking at the location of earthquakes on the days of high earthquake counts
-When looking at the following week after a large earthquake
+When looking at the location of earthquakes on the days of high earthquake counts we can see that these earthquakes are generally clustered in the same area - i will have to make improvements to the graph to see if they are in a similar date but currently I just added a hover feature
 
 - Vishal
