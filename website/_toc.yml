@@ -5,5 +5,6 @@ format: jb-book
 root: intro
 chapters:
 - file: data_comparisons
-- file: notebooks
-- file: markdown-notebooks
+- file: hypothesis_testing
+- file: earthquake_time_series
+- file: location_analysis
