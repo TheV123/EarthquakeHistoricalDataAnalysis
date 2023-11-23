@@ -18,5 +18,3 @@ __Param Patel__
 3rd Year Computer Science Major  
 _University of Virginia_  
 jpg5wq@virginia.edu
-
-```{tableofcontents}
