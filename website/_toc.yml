@@ -4,7 +4,7 @@
 format: jb-book
 root: intro
 chapters:
-  - file: proposal
+  - file: statement
   - file: data_comparisons
   - file: hypothesis_testing
   - file: earthquake_time_series

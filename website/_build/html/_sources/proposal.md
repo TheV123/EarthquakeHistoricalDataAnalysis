@@ -1,4 +1,4 @@
-﻿# Research Proposal
+﻿# Research Statement
 
 
 ## Surrogate Modeling for Efficient Earthquake Prediction
@@ -8,9 +8,9 @@ University of Virginia
 
 Professor Geoffrey Fox
 
-Surrogate Simulation Team 3
+Independent Study Team
 
-9/[day]/2023 – 12/[day]/2023
+9/2023 – 12/2023
 
 - - -
 
