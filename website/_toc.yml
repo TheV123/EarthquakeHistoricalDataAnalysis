@@ -4,8 +4,9 @@
 format: jb-book
 root: intro
 chapters:
-- file: data_comparisons
-- file: hypothesis_testing
-- file: earthquake_time_series
-- file: location_analysis
-- file: usgs_data_insights
+  - file: proposal
+  - file: data_comparisons
+  - file: hypothesis_testing
+  - file: earthquake_time_series
+  - file: location_analysis
+  - file: usgs_data_insights
