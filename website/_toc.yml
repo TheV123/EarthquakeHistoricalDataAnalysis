@@ -6,7 +6,5 @@ root: intro
 chapters:
   - file: statement
   - file: data_comparisons
-  - file: hypothesis_testing
-  - file: earthquake_time_series
-  - file: location_analysis
-  - file: usgs_data_insights
+  - file: magnitude_and_multiplicity
+  - file: large_event_analysis
