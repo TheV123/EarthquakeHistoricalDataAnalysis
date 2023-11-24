@@ -1,7 +1,7 @@
 ﻿# Research Statement
 
 
-## Surrogate Modeling for Efficient Earthquake Prediction
+## Earthquake Data Analysis
 Vishal Kamalakrishnan, Deyan Jani, Param Patel 
 
 University of Virginia
@@ -31,13 +31,10 @@ write about ETAS here?
 - Enhanced understanding of earthquake patterns and relationships.
 - Reliable predictions for real-world applications.
 
-### Validity
- Validate the model by comparing its predictions with USGS records.  
-
-**Expected Benefits/Impact:**
-- Quantitative assessment of the surrogate model's accuracy.
-- Confidence in its reliability for earthquake prediction.
-- Identification of potential improvements.
+What is the purpose of our research?
+How will our findings on data comparisons help future models on earthquakes?
+Can we show links between magnitude and multiplicity? 
+Can we show trends in the time before and after large events?
 
 ## Methodology
 ### Data Collection:
@@ -46,10 +43,6 @@ write about ETAS here?
     - Magnitude 
     - Date & Time 
 
-### Model Training and Testing:
-don't think we did this?
-- Identify suitable datasets and use them to train the model.
-- Validate the model's performance by comparing its generated data to USGS records.
 
 ## References
 list here
