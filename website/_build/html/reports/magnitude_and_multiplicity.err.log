@@ -18,14 +18,22 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+
+x_vals = np.array(usgs_grouped_counts["count"]).reshape(-1,1)
+scaled_counts_arr = scaler.fit_transform(x_vals)
+
+x_vals = np.array(usgs_grouped_max["mag"]).reshape(-1,1)
+scaled_max_arr = scaler.fit_transform(x_vals)
 ------------------
 
 
 [1;31m---------------------------------------------------------------------------[0m
-[1;31mModuleNotFoundError[0m                       Traceback (most recent call last)
-Cell [1;32mIn[6], line 1[0m
-[1;32m----> 1[0m [38;5;28;01mfrom[39;00m [38;5;21;01msklearn[39;00m[38;5;21;01m.[39;00m[38;5;21;01mpreprocessing[39;00m [38;5;28;01mimport[39;00m StandardScaler
+[1;31mNameError[0m                                 Traceback (most recent call last)
+Cell [1;32mIn[8], line 1[0m
+[1;32m----> 1[0m scaler [38;5;241m=[39m [43mStandardScaler[49m()
+[0;32m      3[0m x_vals [38;5;241m=[39m np[38;5;241m.[39marray(usgs_grouped_counts[[38;5;124m"[39m[38;5;124mcount[39m[38;5;124m"[39m])[38;5;241m.[39mreshape([38;5;241m-[39m[38;5;241m1[39m,[38;5;241m1[39m)
+[0;32m      4[0m scaled_counts_arr [38;5;241m=[39m scaler[38;5;241m.[39mfit_transform(x_vals)
 
-[1;31mModuleNotFoundError[0m: No module named 'sklearn'
+[1;31mNameError[0m: name 'StandardScaler' is not defined
 
