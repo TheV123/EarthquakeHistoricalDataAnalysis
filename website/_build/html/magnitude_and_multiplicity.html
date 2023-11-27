@@ -343,7 +343,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -359,6 +361,17 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-filtering">Data Filtering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-grouping">Data Grouping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-scaling-and-merging">Data Scaling and Merging</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation-between-magnitude-and-multiplicity">Correlation Between Magnitude and Multiplicity</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -373,43 +386,50 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span>  <span class="n">MinMaxScaler</span>
-<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">csv_file</span> <span class="o">=</span> <span class="s2">&quot;../datasets/All (1960-2023).csv&quot;</span>
+<span class="n">usgs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">lineterminator</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="nb">str</span><span class="p">})</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
-<span class="ne">----&gt; </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span>  <span class="n">MinMaxScaler</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Vishal\AppData\Local\Temp\ipykernel_14828\3011563604.py:2: DtypeWarning: Columns (1,2,3,4,6,7,8,9,15,16,17,18) have mixed types. Specify dtype option on import or set low_memory=False.
+  usgs = pd.read_csv(csv_file, sep = &#39;,&#39;, lineterminator=&#39;\n&#39;, dtype={&#39;time&#39;:str})
+</pre></div>
+</div>
+</div>
+</div>
+<section id="data-filtering">
+<h2>Data Filtering<a class="headerlink" href="#data-filtering" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Converting the date columns to datetime</p></li>
+<li><p>Date &gt; 1960-01-01 and &lt; 2023-01-01</p></li>
+<li><p>Longitude &gt; -123 and &lt; -113</p></li>
+<li><p>Latitude &gt; 29 and &lt; 39</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#filter the dataset by Date &gt; 1960-01-01 and Date &lt; 2023-01-1 </span>
+<span class="n">usgs</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">usgs</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">usgs</span> <span class="o">=</span> <span class="n">usgs</span><span class="p">[(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">usgs</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s1">&#39;1960-01-01&#39;</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">usgs</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s1">&#39;2023-01-01&#39;</span><span class="p">))]</span>
 
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;sklearn&#39;
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">csv_file</span> <span class="o">=</span> <span class="s2">&quot;../datasets/earthquake_count_usgs.csv&quot;</span>
-<span class="n">earthquake_count_usgs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">lineterminator</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">csv_file0</span> <span class="o">=</span> <span class="s2">&quot;../datasets/max_mag_usgs.csv&quot;</span>
-<span class="n">max_mag_usgs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_file0</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">lineterminator</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">earthquake_count</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">earthquake_count_usgs</span><span class="p">)</span>
-<span class="n">max_mag</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">max_mag_usgs</span><span class="p">)</span>
-<span class="n">earthquake_count</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">usgs</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">usgs</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+<span class="n">usgs</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">usgs</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+<span class="n">usgs</span><span class="p">[</span><span class="s1">&#39;mag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">usgs</span><span class="p">[</span><span class="s1">&#39;mag&#39;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+
+<span class="c1">#filter the dataset by X &gt; -123 and X &lt; -113 and Y &gt; 29 and Y &lt; 39</span>
+<span class="n">usgs</span> <span class="o">=</span> <span class="n">usgs</span><span class="p">[</span><span class="n">usgs</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">123</span><span class="p">]</span>
+<span class="n">usgs</span> <span class="o">=</span> <span class="n">usgs</span><span class="p">[</span><span class="n">usgs</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">113</span><span class="p">]</span>
+<span class="n">usgs</span> <span class="o">=</span> <span class="n">usgs</span><span class="p">[</span><span class="n">usgs</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">39</span><span class="p">]</span>
+<span class="n">usgs</span> <span class="o">=</span> <span class="n">usgs</span><span class="p">[</span><span class="n">usgs</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">29</span><span class="p">]</span>
+<span class="n">usgs</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -432,63 +452,219 @@ document.write(`
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>mag\r</th>
-    </tr>
-    <tr>
       <th>time</th>
-      <th></th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>depth</th>
+      <th>mag</th>
+      <th>magType</th>
+      <th>nst</th>
+      <th>gap</th>
+      <th>dmin</th>
+      <th>rms</th>
+      <th>...</th>
+      <th>updated</th>
+      <th>place</th>
+      <th>type</th>
+      <th>horizontalError</th>
+      <th>depthError</th>
+      <th>magError</th>
+      <th>magNst</th>
+      <th>status</th>
+      <th>locationSource</th>
+      <th>magSource\r</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>1960-01</th>
-      <td>12</td>
-    </tr>
-    <tr>
-      <th>1960-02</th>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>1960-03</th>
+      <th>240</th>
+      <td>2022-12-31</td>
+      <td>33.397500</td>
+      <td>-116.393333</td>
+      <td>3.88</td>
+      <td>4.14</td>
+      <td>mw</td>
+      <td>132</td>
+      <td>16</td>
+      <td>0.07391</td>
+      <td>0.19</td>
+      <td>...</td>
+      <td>2023-09-22T21:50:30.029Z</td>
+      <td>16 km N of Borrego Springs, CA</td>
+      <td>earthquake</td>
+      <td>0.1</td>
+      <td>0.38</td>
+      <td>NaN</td>
       <td>6</td>
+      <td>reviewed</td>
+      <td>ci</td>
+      <td>ci\r</td>
     </tr>
     <tr>
-      <th>1960-04</th>
-      <td>9</td>
+      <th>241</th>
+      <td>2022-12-31</td>
+      <td>34.355667</td>
+      <td>-116.921833</td>
+      <td>4.73</td>
+      <td>3.47</td>
+      <td>mw</td>
+      <td>121</td>
+      <td>25</td>
+      <td>0.07845</td>
+      <td>0.15</td>
+      <td>...</td>
+      <td>2023-03-07T19:00:01.040Z</td>
+      <td>11km SSE of Lucerne Valley, CA</td>
+      <td>earthquake</td>
+      <td>0.09</td>
+      <td>0.41</td>
+      <td>NaN</td>
+      <td>4</td>
+      <td>reviewed</td>
+      <td>ci</td>
+      <td>ci\r</td>
     </tr>
     <tr>
-      <th>1960-05</th>
-      <td>6</td>
+      <th>246</th>
+      <td>2022-12-22</td>
+      <td>37.620167</td>
+      <td>-122.025000</td>
+      <td>3.82</td>
+      <td>3.34</td>
+      <td>mw</td>
+      <td>141</td>
+      <td>16</td>
+      <td>NaN</td>
+      <td>0.16</td>
+      <td>...</td>
+      <td>2023-04-20T04:34:00.806Z</td>
+      <td>3km N of Union City, CA</td>
+      <td>earthquake</td>
+      <td>0.1</td>
+      <td>0.17</td>
+      <td>NaN</td>
+      <td>3</td>
+      <td>reviewed</td>
+      <td>nc</td>
+      <td>nc\r</td>
+    </tr>
+    <tr>
+      <th>262</th>
+      <td>2022-12-17</td>
+      <td>37.918167</td>
+      <td>-122.304000</td>
+      <td>5.48</td>
+      <td>3.57</td>
+      <td>mw</td>
+      <td>170</td>
+      <td>19</td>
+      <td>0.01598</td>
+      <td>0.15</td>
+      <td>...</td>
+      <td>2023-07-27T08:15:34.318Z</td>
+      <td>1km ENE of El Cerrito, CA</td>
+      <td>earthquake</td>
+      <td>0.1</td>
+      <td>0.17</td>
+      <td>NaN</td>
+      <td>4</td>
+      <td>reviewed</td>
+      <td>nc</td>
+      <td>nc\r</td>
+    </tr>
+    <tr>
+      <th>263</th>
+      <td>2022-12-13</td>
+      <td>36.604667</td>
+      <td>-121.209333</td>
+      <td>8.88</td>
+      <td>3.28</td>
+      <td>ml</td>
+      <td>67</td>
+      <td>55</td>
+      <td>0.03812</td>
+      <td>0.09</td>
+      <td>...</td>
+      <td>2023-02-18T22:04:08.040Z</td>
+      <td>10km NW of Pinnacles, CA</td>
+      <td>earthquake</td>
+      <td>0.14</td>
+      <td>0.28</td>
+      <td>0.129</td>
+      <td>72</td>
+      <td>reviewed</td>
+      <td>nc</td>
+      <td>nc\r</td>
     </tr>
   </tbody>
 </table>
+<p>5 rows × 22 columns</p>
 </div></div></div>
 </div>
-<p>explain what scaled data is</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">max_mag</span><span class="p">[</span><span class="s2">&quot;USGS</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
-<span class="n">scaled_data</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x_vals</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">usgs</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]:</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+<span class="n">usgs</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>explain what scaled_data0 is</p>
+</section>
+<section id="data-grouping">
+<h2>Data Grouping<a class="headerlink" href="#data-grouping" title="Permalink to this heading">#</a></h2>
+<p>Data is grouped into 1 week chunks</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_vals0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">earthquake_count</span><span class="p">[</span><span class="s2">&quot;mag</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">scaled_data0</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x_vals0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">usgs_grouped_counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">usgs</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">usgs</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">to_period</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">mag</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
+<span class="n">usgs_grouped_counts</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;mag&#39;</span><span class="p">:</span><span class="s1">&#39;count&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">usgs_grouped_max</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">usgs</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">usgs</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">to_period</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">mag</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_earthquake_data</span> <span class="o">=</span> <span class="n">max_mag</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">merged_earthquake_data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;USGS</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">merged_earthquake_data</span><span class="p">[</span><span class="s2">&quot;scaled_earthquake_count&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scaled_data0</span>
-<span class="n">merged_earthquake_data</span><span class="p">[</span><span class="s2">&quot;scaled_max_mag&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scaled_data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;sklearn&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-scaling-and-merging">
+<h2>Data Scaling and Merging<a class="headerlink" href="#data-scaling-and-merging" title="Permalink to this heading">#</a></h2>
+<p>Data is scaled using a Standard Scaler and merged</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+
+<span class="n">x_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">usgs_grouped_counts</span><span class="p">[</span><span class="s2">&quot;count&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">scaled_counts_arr</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x_vals</span><span class="p">)</span>
+
+<span class="n">x_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">usgs_grouped_max</span><span class="p">[</span><span class="s2">&quot;mag&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">scaled_max_arr</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x_vals</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_earthquake_data</span> <span class="o">=</span> <span class="n">usgs_grouped_counts</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">merged_earthquake_data</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scaled_counts_arr</span>
+<span class="n">merged_earthquake_data</span><span class="p">[</span><span class="s1">&#39;mag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scaled_max_arr</span>
+<span class="n">merged_earthquake_data</span> <span class="o">=</span> <span class="n">merged_earthquake_data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 <span class="n">merged_earthquake_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -512,9 +688,9 @@ document.write(`
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Date</th>
-      <th>scaled_earthquake_count</th>
-      <th>scaled_max_mag</th>
+      <th>time</th>
+      <th>count</th>
+      <th>mag</th>
     </tr>
   </thead>
   <tbody>
@@ -554,21 +730,26 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_earthquake_data</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">merged_earthquake_data</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_earthquake_data</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged_earthquake_data</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">to_timestamp</span><span class="p">()</span>
 
-<span class="c1"># Create a Plotly figure</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">merged_earthquake_data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;scaled_earthquake_count&#39;</span><span class="p">,</span> <span class="s1">&#39;scaled_max_mag&#39;</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="s1">&#39;Value&#39;</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;scaled_earthquake_count vs scaled_max_mag&#39;</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">merged_earthquake_data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="s1">&#39;mag&#39;</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="s1">&#39;Value&#39;</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Scaled Earthquake Magnitude vs Multiplicity&#39;</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">900</span><span class="p">,</span>
     <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">))</span>
-<span class="c1"># Add interactivity</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">rangeslider_visible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">dragmode</span><span class="o">=</span><span class="s1">&#39;pan&#39;</span><span class="p">,</span> <span class="n">hovermode</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">dragmode</span><span class="o">=</span><span class="s1">&#39;pan&#39;</span><span class="p">)</span>
 
-<span class="c1"># Show the interactive plot</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -576,311 +757,56 @@ document.write(`
 <div class="cell_output docutils container">
 </div>
 </div>
-<p>Now we find the 10 largest values of both dataframes</p>
+</section>
+<section id="correlation-between-magnitude-and-multiplicity">
+<h2>Correlation Between Magnitude and Multiplicity<a class="headerlink" href="#correlation-between-magnitude-and-multiplicity" title="Permalink to this heading">#</a></h2>
+<p>General correlation between magnitude and multiplicity</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">correlation_coefficient</span> <span class="o">=</span> <span class="n">merged_earthquake_data</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">merged_earthquake_data</span><span class="p">[</span><span class="s1">&#39;mag&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">correlation_coefficient</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.49935323787092756
+</pre></div>
+</div>
+</div>
+</div>
+<p>Correlation between top 15 highest earthquake count months and the max earthquake magnitudes they had</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scaled_earthquake_count</span> <span class="o">=</span> <span class="n">merged_earthquake_data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">scaled_earthquake_count</span> <span class="o">=</span> <span class="n">scaled_earthquake_count</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="s1">&#39;scaled_earthquake_count&#39;</span><span class="p">)</span>
-<span class="n">scaled_earthquake_count</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">scaled_earthquake_count</span> <span class="o">=</span> <span class="n">merged_earthquake_data</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">)</span>
+<span class="n">correlation_coefficient</span> <span class="o">=</span> <span class="n">scaled_earthquake_count</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">scaled_earthquake_count</span><span class="p">[</span><span class="s1">&#39;mag&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">correlation_coefficient</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Date</th>
-      <th>scaled_earthquake_count</th>
-      <th>scaled_max_mag</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>714</th>
-      <td>2019-07-01</td>
-      <td>15.315650</td>
-      <td>3.535257</td>
-    </tr>
-    <tr>
-      <th>603</th>
-      <td>2010-04-01</td>
-      <td>9.327743</td>
-      <td>3.682940</td>
-    </tr>
-    <tr>
-      <th>390</th>
-      <td>1992-07-01</td>
-      <td>7.642258</td>
-      <td>1.423398</td>
-    </tr>
-    <tr>
-      <th>389</th>
-      <td>1992-06-01</td>
-      <td>7.287419</td>
-      <td>3.830622</td>
-    </tr>
-    <tr>
-      <th>477</th>
-      <td>1999-10-01</td>
-      <td>6.562956</td>
-      <td>3.535257</td>
-    </tr>
-    <tr>
-      <th>244</th>
-      <td>1980-05-01</td>
-      <td>6.533386</td>
-      <td>2.206115</td>
-    </tr>
-    <tr>
-      <th>318</th>
-      <td>1986-07-01</td>
-      <td>6.089838</td>
-      <td>2.501480</td>
-    </tr>
-    <tr>
-      <th>408</th>
-      <td>1994-01-01</td>
-      <td>4.907041</td>
-      <td>2.944527</td>
-    </tr>
-    <tr>
-      <th>280</th>
-      <td>1983-05-01</td>
-      <td>4.345213</td>
-      <td>2.944527</td>
-    </tr>
-    <tr>
-      <th>724</th>
-      <td>2020-05-01</td>
-      <td>4.286073</td>
-      <td>2.649162</td>
-    </tr>
-    <tr>
-      <th>237</th>
-      <td>1979-10-01</td>
-      <td>3.931234</td>
-      <td>2.501480</td>
-    </tr>
-    <tr>
-      <th>133</th>
-      <td>1971-02-01</td>
-      <td>3.561610</td>
-      <td>2.796845</td>
-    </tr>
-    <tr>
-      <th>245</th>
-      <td>1980-06-01</td>
-      <td>2.733652</td>
-      <td>2.353797</td>
-    </tr>
-    <tr>
-      <th>334</th>
-      <td>1987-11-01</td>
-      <td>2.571018</td>
-      <td>2.796845</td>
-    </tr>
-    <tr>
-      <th>527</th>
-      <td>2003-12-01</td>
-      <td>2.497093</td>
-      <td>2.649162</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.3891397871624839
+</pre></div>
 </div>
+</div>
+</div>
+<p>Correlation between top 15 largest earthquakes and the earthquake counts they had in that month</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">scaled_earthquake_count</span><span class="p">[</span><span class="s1">&#39;scaled_earthquake_count&#39;</span><span class="p">],</span> <span class="n">scaled_earthquake_count</span><span class="p">[</span><span class="s1">&#39;scaled_max_mag&#39;</span><span class="p">])</span>
-<span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">scaled_earthquake_count</span><span class="p">[</span><span class="s1">&#39;scaled_earthquake_count&#39;</span><span class="p">],</span> <span class="n">scaled_earthquake_count</span><span class="p">[</span><span class="s1">&#39;scaled_max_mag&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 1 specifies a linear fit</span>
-
-<span class="c1"># Create the best-fit line equation</span>
-<span class="n">best_fit_line</span> <span class="o">=</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scaled_earthquake_count</span><span class="p">[</span><span class="s1">&#39;scaled_earthquake_count&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="n">intercept</span>
-
-<span class="c1"># Plot the best-fit line</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">scaled_earthquake_count</span><span class="p">[</span><span class="s1">&#39;scaled_earthquake_count&#39;</span><span class="p">],</span> <span class="n">best_fit_line</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Line of Best Fit&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Normalized Earthquake Counts (Top 15)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Normalized Earthquake Magnitudes (Top 15)&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scaled_earthquake_mag</span> <span class="o">=</span> <span class="n">merged_earthquake_data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">scaled_earthquake_mag</span> <span class="o">=</span> <span class="n">merged_earthquake_data</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="s1">&#39;mag&#39;</span><span class="p">)</span>
+<span class="n">correlation_coefficient</span> <span class="o">=</span> <span class="n">scaled_earthquake_mag</span><span class="p">[</span><span class="s1">&#39;mag&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">scaled_earthquake_mag</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">correlation_coefficient</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Normalized Earthquake Magnitudes (Top 15)&#39;)
-</pre></div>
-</div>
-<img alt="_images/318b53726fecafb723fd67ba54dc486da7809308f1a15efbd7077345bc461a3b.png" src="_images/318b53726fecafb723fd67ba54dc486da7809308f1a15efbd7077345bc461a3b.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scaled_max_mag</span> <span class="o">=</span> <span class="n">merged_earthquake_data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">scaled_max_mag</span> <span class="o">=</span> <span class="n">scaled_max_mag</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="s1">&#39;scaled_max_mag&#39;</span><span class="p">)</span>
-<span class="n">scaled_max_mag</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Date</th>
-      <th>scaled_earthquake_count</th>
-      <th>scaled_max_mag</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>389</th>
-      <td>1992-06-01</td>
-      <td>7.287419</td>
-      <td>3.830622</td>
-    </tr>
-    <tr>
-      <th>603</th>
-      <td>2010-04-01</td>
-      <td>9.327743</td>
-      <td>3.682940</td>
-    </tr>
-    <tr>
-      <th>477</th>
-      <td>1999-10-01</td>
-      <td>6.562956</td>
-      <td>3.535257</td>
-    </tr>
-    <tr>
-      <th>714</th>
-      <td>2019-07-01</td>
-      <td>15.315650</td>
-      <td>3.535257</td>
-    </tr>
-    <tr>
-      <th>357</th>
-      <td>1989-10-01</td>
-      <td>2.423168</td>
-      <td>3.239892</td>
-    </tr>
-    <tr>
-      <th>280</th>
-      <td>1983-05-01</td>
-      <td>4.345213</td>
-      <td>2.944527</td>
-    </tr>
-    <tr>
-      <th>408</th>
-      <td>1994-01-01</td>
-      <td>4.907041</td>
-      <td>2.944527</td>
-    </tr>
-    <tr>
-      <th>99</th>
-      <td>1968-04-01</td>
-      <td>1.151662</td>
-      <td>2.796845</td>
-    </tr>
-    <tr>
-      <th>133</th>
-      <td>1971-02-01</td>
-      <td>3.561610</td>
-      <td>2.796845</td>
-    </tr>
-    <tr>
-      <th>334</th>
-      <td>1987-11-01</td>
-      <td>2.571018</td>
-      <td>2.796845</td>
-    </tr>
-    <tr>
-      <th>527</th>
-      <td>2003-12-01</td>
-      <td>2.497093</td>
-      <td>2.649162</td>
-    </tr>
-    <tr>
-      <th>724</th>
-      <td>2020-05-01</td>
-      <td>4.286073</td>
-      <td>2.649162</td>
-    </tr>
-    <tr>
-      <th>189</th>
-      <td>1975-10-01</td>
-      <td>0.116715</td>
-      <td>2.501480</td>
-    </tr>
-    <tr>
-      <th>237</th>
-      <td>1979-10-01</td>
-      <td>3.931234</td>
-      <td>2.501480</td>
-    </tr>
-    <tr>
-      <th>318</th>
-      <td>1986-07-01</td>
-      <td>6.089838</td>
-      <td>2.501480</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">earthquake_count_dates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scaled_earthquake_count</span><span class="p">[</span><span class="s2">&quot;Date&quot;</span><span class="p">])</span>
-<span class="n">max_mag_dates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scaled_max_mag</span><span class="p">[</span><span class="s2">&quot;Date&quot;</span><span class="p">])</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.660518445213043
 </pre></div>
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">jaccard_similarity</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="n">intersection</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
-    <span class="n">union</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
-    <span class="n">similarity</span> <span class="o">=</span> <span class="n">intersection</span> <span class="o">/</span> <span class="n">union</span>
-    <span class="n">percent_similarity</span> <span class="o">=</span> <span class="n">similarity</span> <span class="o">*</span> <span class="mi">100</span>
-    <span class="k">return</span> <span class="n">percent_similarity</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">jaccard_similarity</span><span class="p">(</span><span class="n">earthquake_count_dates</span><span class="p">,</span> <span class="n">max_mag_dates</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>66.66666666666666
-</pre></div>
-</div>
-</div>
-</div>
-<p>explain what 2/3rds jaccard similarity means</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -937,6 +863,23 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-filtering">Data Filtering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-grouping">Data Grouping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-scaling-and-merging">Data Scaling and Merging</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation-between-magnitude-and-multiplicity">Correlation Between Magnitude and Multiplicity</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
