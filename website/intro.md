@@ -1,6 +1,7 @@
 # Introduction
 
-We are interested in furthering the development models which can accurately predict earthquakes. Our goal is to perform an in-depth analysis on an existing model to see how it aligns with observed United States Geological Survey (USGS) records on earthquakes. We aim to do this using a combination of advanced data analysis techniques. Our assessment will help conclude whether this model can provide predictuve insights about seismic activity, or if a new direction is required to advance this research.
+We are interested in furthering the development models which can accurately predict earthquakes. Our goal is to perform an in-depth analysis on the Epidemic Type Aftershock
+Sequence (ETAS) to see how it aligns with observed United States Geological Survey (USGS) records on earthquakes. We aim to do this using a combination of many advanced data analysis techniques and will provide helpful charts and graphs showing this comparison. We also hope to find trends and statistics within recorded earthquake data in USGS to help future model authors to better predict earthquakes
 
 - - -
 ## About Us

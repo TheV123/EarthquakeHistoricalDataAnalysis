@@ -14,10 +14,12 @@ Independent Study Team
 
 - - -
 
-## Introduction
-ETAS is a machine learning model that simulates earthquakes. It relies on commonly-used formulas to simulate the time, location, and magnitude of earthquakes.
+# Overall Objectives
+Our research aims to facilitate better earthquake prediction by comparing the Epidemic Type Aftershock Sequence (ETAS) to see how it aligns with observed United States Geological Survey (USGS) records on earthquakes. We then focus on finding trends within USGS to better understand the nature of earthquakes and to serve as a baseline for future models
 
-add more about ETAS
+# ETAS vs USGS
+## Introduction About ETAS
+ETAS is a machine learning model that simulates earthquakes. It relies on commonly-used formulas to simulate the time, location, and magnitude of earthquakes.
 
 ## Objectives
 This research aims to understand whether ETAS can accurately simulate the magnitudes and locations of earthquakes. By using data analysis to compare ETAS data with USGS records, we are able to determine the accuracy of this model and discover potential limitations. This understanding can be used to fine-tune future machine learning models, improving on areas where ETAS was successful and changing aspects where it failed. 
@@ -33,8 +35,19 @@ We use the following earthquake-related data to compare ETAS and USGS data:
 - Coordinates  
 - Magnitude  
 - Date & Time
+- Energy
 
-## References
+# Trends Within USGS
+## Introduction to the USGS Dataset
+The United States Geological Survey (USGS) is a catalog on earthquakes. We filter the dataset based on magnitude > 3 and perform several other filters based on location.
+
+### Data Collection:
+We observe trends within the following about USGS data:
+- Earthquakes Before/After large events  
+- Time between large events  
+- Earthquake Locations during large events
+
+# References
 John Rundle (and others) for developing the ETAS model
 Geoffrey Fox for his energy conversion formula and guidance
 Other references

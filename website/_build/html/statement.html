@@ -170,6 +170,10 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Research Statement</a></li>
+
+
+
+
 <li class="toctree-l1"><a class="reference internal" href="data_comparisons.html">Historical Data Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="magnitude_and_multiplicity.html">Relationship Between Magnitude And Multiplicity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="large_event_analysis.html">Large Event Analysis</a></li>
@@ -367,15 +371,30 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Research Statement</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#earthquake-data-analysis">Earthquake Data Analysis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#overall-objectives">Overall Objectives</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#etas-vs-usgs">ETAS vs USGS</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-about-etas">Introduction About ETAS</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#areas-of-interest">Areas of interest:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-collection">Data Collection:</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#trends-within-usgs">Trends Within USGS</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-the-usgs-dataset">Introduction to the USGS Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Data Collection:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -396,11 +415,17 @@ document.write(`
 <p>Independent Study Team</p>
 <p>9/2023 – 12/2023</p>
 </section>
+</section>
 <hr class="docutils" />
-<section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h2>
+<section class="tex2jax_ignore mathjax_ignore" id="overall-objectives">
+<h1>Overall Objectives<a class="headerlink" href="#overall-objectives" title="Permalink to this heading">#</a></h1>
+<p>Our research aims to facilitate better earthquake prediction by comparing the Epidemic Type Aftershock Sequence (ETAS) to see how it aligns with observed United States Geological Survey (USGS) records on earthquakes. We then focus on finding trends within USGS to better understand the nature of earthquakes and to serve as a baseline for future models</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="etas-vs-usgs">
+<h1>ETAS vs USGS<a class="headerlink" href="#etas-vs-usgs" title="Permalink to this heading">#</a></h1>
+<section id="introduction-about-etas">
+<h2>Introduction About ETAS<a class="headerlink" href="#introduction-about-etas" title="Permalink to this heading">#</a></h2>
 <p>ETAS is a machine learning model that simulates earthquakes. It relies on commonly-used formulas to simulate the time, location, and magnitude of earthquakes.</p>
-<p>add more about ETAS</p>
 </section>
 <section id="objectives">
 <h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h2>
@@ -421,15 +446,32 @@ document.write(`
 <li><p>Coordinates</p></li>
 <li><p>Magnitude</p></li>
 <li><p>Date &amp; Time</p></li>
+<li><p>Energy</p></li>
 </ul>
 </section>
 </section>
-<section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="trends-within-usgs">
+<h1>Trends Within USGS<a class="headerlink" href="#trends-within-usgs" title="Permalink to this heading">#</a></h1>
+<section id="introduction-to-the-usgs-dataset">
+<h2>Introduction to the USGS Dataset<a class="headerlink" href="#introduction-to-the-usgs-dataset" title="Permalink to this heading">#</a></h2>
+<p>The United States Geological Survey (USGS) is a catalog on earthquakes. We filter the dataset based on magnitude &gt; 3 and perform several other filters based on location.</p>
+<section id="id1">
+<h3>Data Collection:<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<p>We observe trends within the following about USGS data:</p>
+<ul class="simple">
+<li><p>Earthquakes Before/After large events</p></li>
+<li><p>Time between large events</p></li>
+<li><p>Earthquake Locations during large events</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="references">
+<h1>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h1>
 <p>John Rundle (and others) for developing the ETAS model
 Geoffrey Fox for his energy conversion formula and guidance
 Other references</p>
-</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -495,15 +537,30 @@ Other references</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Research Statement</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#earthquake-data-analysis">Earthquake Data Analysis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#overall-objectives">Overall Objectives</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#etas-vs-usgs">ETAS vs USGS</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-about-etas">Introduction About ETAS</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">Objectives</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#areas-of-interest">Areas of interest:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-collection">Data Collection:</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#trends-within-usgs">Trends Within USGS</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-the-usgs-dataset">Introduction to the USGS Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Data Collection:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+
   </nav></div>
 
 </div></div>
