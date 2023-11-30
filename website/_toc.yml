@@ -9,3 +9,4 @@ chapters:
   - file: magnitude_and_multiplicity
   - file: large_event_analysis
   - file: time_until_large_events
+  - file: location_analysis
