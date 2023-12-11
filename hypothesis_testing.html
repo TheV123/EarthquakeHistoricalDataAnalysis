@@ -1,0 +1,2530 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Hypothesis Testing &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'hypothesis_testing';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Earthquake Time Series" href="earthquake_time_series.html" />
+    <link rel="prev" title="Historical Data Analysis" href="data_comparisons.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="proposal.html">Research Proposal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_comparisons.html">Historical Data Analysis</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Hypothesis Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="earthquake_time_series.html">Earthquake Time Series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usgs_data_insights.html">USGS Data Insights</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fhypothesis_testing.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/hypothesis_testing.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Hypothesis Testing</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="hypothesis-testing">
+<h1>Hypothesis Testing<a class="headerlink" href="#hypothesis-testing" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span>  <span class="n">MinMaxScaler</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;matplotlib&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">csv_file</span> <span class="o">=</span> <span class="s2">&quot;earthquake_count_usgs.csv&quot;</span>
+<span class="n">earthquake_count_usgs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">lineterminator</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">csv_file0</span> <span class="o">=</span> <span class="s2">&quot;max_mag_usgs.csv&quot;</span>
+<span class="n">max_mag_usgs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_file0</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">lineterminator</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">earthquake_count</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">earthquake_count_usgs</span><span class="p">)</span>
+<span class="n">max_mag</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">max_mag_usgs</span><span class="p">)</span>
+<span class="n">earthquake_count</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>mag\r</th>
+    </tr>
+    <tr>
+      <th>time</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1960-01</th>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>1960-02</th>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>1960-03</th>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>1960-04</th>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>1960-05</th>
+      <td>6</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>explain what scaled data is</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">max_mag</span><span class="p">[</span><span class="s2">&quot;USGS</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">scaled_data</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x_vals</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 0.43392479]
+ [-1.35303349]
+ [-1.5302525 ]
+ [-0.68846223]
+ [-1.04290024]
+ [ 0.30101054]
+ [-0.39309722]
+ [-0.58508448]
+ [-1.04290024]
+ [-1.8846905 ]
+ [-1.33826524]
+ [-1.04290024]
+ [ 0.50776604]
+ [ 0.8769723 ]
+ [-0.58508448]
+ [ 1.73353082]
+ [-0.67369398]
+ [-1.95853175]
+ [-0.09773222]
+ [-0.02389097]
+ [ 0.06471854]
+ [ 0.62591205]
+ [ 0.38962004]
+ [-0.86568123]
+ [-0.96905898]
+ [-0.40786547]
+ [-0.30448772]
+ [ 0.5816073 ]
+ [ 0.5816073 ]
+ [-0.21587822]
+ [-0.34879247]
+ [-0.83614473]
+ [ 0.36008354]
+ [ 0.38962004]
+ [-0.55554798]
+ [-0.39309722]
+ [-0.62938923]
+ [-0.83614473]
+ [ 0.16809629]
+ [-0.92475423]
+ [-0.03865922]
+ [-0.80660823]
+ [-0.09773222]
+ [-0.82137648]
+ [ 1.02465481]
+ [ 0.18286454]
+ [-0.70323048]
+ [-0.09773222]
+ [ 0.24193754]
+ [-0.00912272]
+ [-0.30448772]
+ [ 0.10902329]
+ [-0.45217022]
+ [-0.92475423]
+ [-0.70323048]
+ [-0.58508448]
+ [-0.43740197]
+ [ 0.43392479]
+ [ 0.7292898 ]
+ [-0.18634172]
+ [-0.36356072]
+ [-0.77707173]
+ [ 0.09425504]
+ [-0.14203697]
+ [-0.43740197]
+ [-0.33402422]
+ [ 0.33054704]
+ [-0.37832897]
+ [ 0.6406803 ]
+ [ 0.36008354]
+ [-1.19058274]
+ [ 0.47822954]
+ [-0.52601148]
+ [-0.36356072]
+ [-0.93952248]
+ [ 0.00564553]
+ [ 0.34531529]
+ [ 1.12803256]
+ [-1.19058274]
+ [ 1.39386106]
+ [ 0.8769723 ]
+ [-0.30448772]
+ [-1.17581449]
+ [ 1.34955631]
+ [-0.30448772]
+ [ 0.25670579]
+ [-0.83614473]
+ [-0.79183998]
+ [ 0.40438829]
+ [-0.79183998]
+ [-0.51124323]
+ [-0.55554798]
+ [ 0.28624229]
+ [ 0.74405805]
+ [-0.71799873]
+ [ 0.8474358 ]
+ [-0.59985273]
+ [ 0.43392479]
+ [ 0.31577879]
+ [ 2.79684484]
+ [ 0.80313105]
+ [ 0.31577879]
+ [ 0.50776604]
+ [ 0.5520708 ]
+ [ 0.04995029]
+ [-1.11674149]
+ [-0.64415748]
+ [ 1.20187381]
+ [ 0.06471854]
+ [-0.43740197]
+ [-0.73276698]
+ [ 1.11326431]
+ [ 0.47822954]
+ [-0.85091298]
+ [ 0.89174055]
+ [-0.80660823]
+ [ 1.64492132]
+ [ 1.61538482]
+ [ 1.91074982]
+ [ 0.41915654]
+ [-0.90998598]
+ [ 0.5816073 ]
+ [ 1.23141031]
+ [-0.92475423]
+ [ 0.40438829]
+ [-0.15680522]
+ [-0.93952248]
+ [-0.30448772]
+ [ 0.7588263 ]
+ [ 0.33054704]
+ [-0.39309722]
+ [ 0.71452155]
+ [-1.05766849]
+ [ 2.79684484]
+ [ 0.13855979]
+ [ 0.13855979]
+ [-0.90998598]
+ [-0.08296397]
+ [ 0.44869304]
+ [ 0.07948679]
+ [ 0.46346129]
+ [-0.77707173]
+ [-0.59985273]
+ [ 0.13855979]
+ [-0.58508448]
+ [ 0.7588263 ]
+ [-0.33402422]
+ [-1.05766849]
+ [-0.51124323]
+ [-1.27919224]
+ [-0.48170673]
+ [-1.914227  ]
+ [ 0.5816073 ]
+ [ 0.25670579]
+ [-1.24965574]
+ [-0.11250047]
+ [-0.76230348]
+ [ 0.8769723 ]
+ [ 1.02465481]
+ [ 1.32001981]
+ [ 0.13855979]
+ [ 2.05843233]
+ [-0.31925597]
+ [ 0.6406803 ]
+ [-0.08296397]
+ [ 0.13855979]
+ [-0.45217022]
+ [-0.30448772]
+ [-0.45217022]
+ [ 1.61538482]
+ [-0.49647498]
+ [-0.48170673]
+ [ 0.13855979]
+ [ 0.43392479]
+ [ 1.46770231]
+ [ 1.61538482]
+ [ 1.32001981]
+ [-0.76230348]
+ [ 0.7292898 ]
+ [-0.51124323]
+ [ 0.19763279]
+ [ 1.46770231]
+ [ 1.17233731]
+ [ 0.7292898 ]
+ [ 1.91074982]
+ [ 2.20611483]
+ [-0.00912272]
+ [ 0.28624229]
+ [ 0.13855979]
+ [ 2.50147984]
+ [ 1.91074982]
+ [ 1.46770231]
+ [ 2.20611483]
+ [ 2.35379733]
+ [ 2.35379733]
+ [-0.34879247]
+ [ 0.28624229]
+ [-0.89521773]
+ [ 0.8769723 ]
+ [ 0.8769723 ]
+ [-1.11674149]
+ [-0.61462098]
+ [ 0.5225343 ]
+ [ 1.17233731]
+ [-0.59985273]
+ [ 0.13855979]
+ [-1.29396049]
+ [ 1.32001981]
+ [ 0.8769723 ]
+ [-0.45217022]
+ [-1.33826524]
+ [ 1.46770231]
+ [ 0.13855979]
+ [-0.45217022]
+ [ 1.46770231]
+ [ 1.46770231]
+ [-1.33826524]
+ [ 1.32001981]
+ [ 1.32001981]
+ [ 1.17233731]
+ [ 0.47822954]
+ [-0.42263372]
+ [ 1.17233731]
+ [ 1.32001981]
+ [ 1.46770231]
+ [ 0.6997533 ]
+ [ 0.5816073 ]
+ [ 1.17233731]
+ [ 0.74405805]
+ [ 1.17233731]
+ [ 0.77359455]
+ [-0.45217022]
+ [ 0.13855979]
+ [ 1.17233731]
+ [-1.04290024]
+ [ 1.61538482]
+ [ 1.61538482]
+ [ 2.50147984]
+ [-0.59985273]
+ [ 0.06471854]
+ [ 1.61538482]
+ [ 0.9360453 ]
+ [-0.59985273]
+ [ 1.02465481]
+ [ 2.20611483]
+ [ 2.35379733]
+ [ 1.17233731]
+ [ 1.02465481]
+ [ 0.43392479]
+ [-0.00912272]
+ [ 0.13855979]
+ [ 0.5816073 ]
+ [ 1.32001981]
+ [-1.5893255 ]
+ [-0.45217022]
+ [ 1.54154357]
+ [-0.30448772]
+ [ 1.17233731]
+ [-0.74753523]
+ [-0.59985273]
+ [ 1.76306732]
+ [ 0.28624229]
+ [ 0.8769723 ]
+ [-0.15680522]
+ [ 1.76306732]
+ [ 1.32001981]
+ [-0.12726872]
+ [ 1.02465481]
+ [ 1.46770231]
+ [ 1.32001981]
+ [-0.30448772]
+ [ 1.46770231]
+ [ 0.43392479]
+ [ 1.02465481]
+ [-0.45217022]
+ [-0.00912272]
+ [ 1.02465481]
+ [-0.48170673]
+ [ 0.5816073 ]
+ [ 1.46770231]
+ [ 2.94452734]
+ [-0.08296397]
+ [ 0.98035005]
+ [ 0.7292898 ]
+ [ 1.12803256]
+ [-0.27495122]
+ [-0.95429073]
+ [ 0.5816073 ]
+ [ 0.5816073 ]
+ [ 0.43392479]
+ [ 1.76306732]
+ [ 2.20611483]
+ [ 1.61538482]
+ [-0.15680522]
+ [ 0.8769723 ]
+ [-0.00912272]
+ [ 0.43392479]
+ [-0.21587822]
+ [ 2.05843233]
+ [ 1.17233731]
+ [ 0.7292898 ]
+ [-0.14203697]
+ [ 0.8769723 ]
+ [ 1.46770231]
+ [ 1.46770231]
+ [ 1.17233731]
+ [ 0.7292898 ]
+ [ 1.32001981]
+ [-0.15680522]
+ [-0.15680522]
+ [-0.15680522]
+ [ 1.46770231]
+ [ 1.17233731]
+ [-1.13150974]
+ [ 1.46770231]
+ [ 0.8769723 ]
+ [-0.00912272]
+ [ 1.17233731]
+ [ 2.50147984]
+ [ 0.5816073 ]
+ [ 1.17233731]
+ [ 1.32001981]
+ [ 1.61538482]
+ [ 1.17233731]
+ [-0.73276698]
+ [ 0.9951183 ]
+ [-0.59985273]
+ [ 1.17233731]
+ [-0.74753523]
+ [-0.89521773]
+ [ 0.13855979]
+ [ 1.76306732]
+ [ 1.46770231]
+ [ 1.76306732]
+ [ 2.79684484]
+ [-0.20110997]
+ [-0.05342747]
+ [ 0.8769723 ]
+ [-1.02813199]
+ [-1.04290024]
+ [ 0.13855979]
+ [ 1.02465481]
+ [ 1.32001981]
+ [ 1.17233731]
+ [-0.30448772]
+ [ 1.76306732]
+ [ 0.18286454]
+ [ 0.47822954]
+ [ 0.37485179]
+ [ 0.7292898 ]
+ [ 0.43392479]
+ [ 0.13855979]
+ [-0.45217022]
+ [ 0.8769723 ]
+ [-0.15680522]
+ [ 1.02465481]
+ [-0.74753523]
+ [ 3.23989235]
+ [-0.00912272]
+ [ 1.17233731]
+ [-0.45217022]
+ [ 1.18710556]
+ [ 0.43392479]
+ [ 1.02465481]
+ [-1.04290024]
+ [ 1.46770231]
+ [-0.00912272]
+ [-0.31925597]
+ [-0.45217022]
+ [ 1.61538482]
+ [ 1.02465481]
+ [-0.67369398]
+ [-1.48594775]
+ [-0.00912272]
+ [-0.15680522]
+ [ 1.32001981]
+ [-0.89521773]
+ [ 1.61538482]
+ [-0.85091298]
+ [-0.45217022]
+ [ 1.17233731]
+ [ 0.7292898 ]
+ [-0.15680522]
+ [-0.64415748]
+ [-1.35303349]
+ [-0.95429073]
+ [ 1.17233731]
+ [ 2.05843233]
+ [ 0.40438829]
+ [ 3.83062236]
+ [ 1.42339756]
+ [ 0.77359455]
+ [ 0.8178993 ]
+ [-0.17157347]
+ [ 0.86220405]
+ [ 0.8178993 ]
+ [ 0.30101054]
+ [-0.30448772]
+ [-0.99859549]
+ [-0.67369398]
+ [ 2.05843233]
+ [-1.29396049]
+ [-1.02813199]
+ [ 0.43392479]
+ [-0.89521773]
+ [-0.86568123]
+ [ 0.16809629]
+ [-0.90998598]
+ [ 2.94452734]
+ [-0.90998598]
+ [ 0.7883628 ]
+ [ 0.10902329]
+ [-0.45217022]
+ [ 0.38962004]
+ [-1.35303349]
+ [ 0.21240104]
+ [ 2.05843233]
+ [-0.59985273]
+ [-0.73276698]
+ [ 0.28624229]
+ [-0.45217022]
+ [-0.54077973]
+ [-0.74753523]
+ [ 0.28624229]
+ [ 0.09425504]
+ [ 0.46346129]
+ [-0.74753523]
+ [ 0.9655818 ]
+ [ 1.54154357]
+ [-0.80660823]
+ [-0.74753523]
+ [ 0.22716929]
+ [ 0.68498505]
+ [-1.32349699]
+ [-0.74753523]
+ [ 0.28624229]
+ [-0.00912272]
+ [-0.59985273]
+ [-0.80660823]
+ [-0.59985273]
+ [-1.27919224]
+ [-0.74753523]
+ [ 0.8769723 ]
+ [-0.15680522]
+ [-1.08720499]
+ [-0.74753523]
+ [ 0.8178993 ]
+ [ 0.53730255]
+ [-0.31925597]
+ [ 0.07948679]
+ [ 0.27147404]
+ [-0.30448772]
+ [-0.42263372]
+ [-1.23488749]
+ [ 1.02465481]
+ [ 0.13855979]
+ [-0.61462098]
+ [-0.59985273]
+ [ 0.77359455]
+ [-0.74753523]
+ [-0.59985273]
+ [ 0.28624229]
+ [ 0.28624229]
+ [ 0.5816073 ]
+ [-1.33826524]
+ [ 0.16809629]
+ [-1.23488749]
+ [-0.89521773]
+ [ 0.13855979]
+ [-0.68846223]
+ [-0.64415748]
+ [-0.82137648]
+ [ 1.17233731]
+ [ 0.31577879]
+ [-0.52601148]
+ [ 1.46770231]
+ [ 0.13855979]
+ [ 3.53525736]
+ [-0.42263372]
+ [-0.99859549]
+ [-0.17157347]
+ [-0.49647498]
+ [-0.68846223]
+ [-0.62938923]
+ [-0.96905898]
+ [-0.28971947]
+ [-1.44164299]
+ [-1.48594775]
+ [ 0.28624229]
+ [-1.04290024]
+ [-1.5893255 ]
+ [-0.42263372]
+ [-0.65892573]
+ [-0.06819572]
+ [-1.855154  ]
+ [-1.38256999]
+ [-0.67369398]
+ [-2.00283651]
+ [ 0.68498505]
+ [-0.51124323]
+ [-0.68846223]
+ [ 0.46346129]
+ [-0.88044948]
+ [-0.15680522]
+ [-0.73276698]
+ [ 1.46770231]
+ [-0.15680522]
+ [-0.46693847]
+ [ 0.28624229]
+ [-0.74753523]
+ [-1.42687474]
+ [-1.41210649]
+ [ 0.10902329]
+ [ 0.09425504]
+ [-0.89521773]
+ [ 0.19763279]
+ [-0.24541472]
+ [ 0.41915654]
+ [-0.09773222]
+ [-1.7665445 ]
+ [-0.79183998]
+ [-1.33826524]
+ [-0.82137648]
+ [-0.74753523]
+ [-1.04290024]
+ [-0.85091298]
+ [-0.59985273]
+ [ 2.64916234]
+ [-0.83614473]
+ [-0.18634172]
+ [-0.28971947]
+ [-1.41210649]
+ [-0.30448772]
+ [ 0.40438829]
+ [-0.64415748]
+ [-0.80660823]
+ [ 1.86644507]
+ [-0.27495122]
+ [-0.52601148]
+ [-0.58508448]
+ [-0.42263372]
+ [-0.77707173]
+ [-1.04290024]
+ [-0.17157347]
+ [-0.33402422]
+ [ 0.7292898 ]
+ [-0.88044948]
+ [-0.11250047]
+ [ 0.5520708 ]
+ [ 0.41915654]
+ [-1.07243674]
+ [-0.79183998]
+ [-1.19058274]
+ [-0.89521773]
+ [-0.88044948]
+ [-0.54077973]
+ [ 0.98035005]
+ [-0.45217022]
+ [-1.01336374]
+ [-0.30448772]
+ [-0.96905898]
+ [-0.21587822]
+ [-0.12726872]
+ [-0.74753523]
+ [-0.89521773]
+ [-0.61462098]
+ [-0.00912272]
+ [-0.36356072]
+ [-1.02813199]
+ [-0.15680522]
+ [-0.74753523]
+ [-0.06819572]
+ [ 0.03518204]
+ [ 1.09849606]
+ [-1.737008  ]
+ [-0.95429073]
+ [-1.19058274]
+ [ 0.5816073 ]
+ [-0.77707173]
+ [-0.00912272]
+ [-0.40786547]
+ [-0.59985273]
+ [ 1.08372781]
+ [-1.44164299]
+ [-0.11250047]
+ [-0.83614473]
+ [ 0.40438829]
+ [ 0.5225343 ]
+ [-0.37832897]
+ [-1.20535099]
+ [ 0.09425504]
+ [-0.71799873]
+ [ 0.03518204]
+ [-0.46693847]
+ [-1.16104624]
+ [-1.20535099]
+ [ 0.5520708 ]
+ [ 0.71452155]
+ [-0.15680522]
+ [ 1.61538482]
+ [-0.43740197]
+ [-0.37832897]
+ [-0.39309722]
+ [ 3.68293986]
+ [ 0.28624229]
+ [ 1.48247056]
+ [ 1.05419131]
+ [-0.62938923]
+ [-0.59985273]
+ [-0.62938923]
+ [-0.20110997]
+ [-0.49647498]
+ [-0.30448772]
+ [-1.11674149]
+ [-0.40786547]
+ [-0.15680522]
+ [-0.37832897]
+ [-1.10197324]
+ [-0.88044948]
+ [-0.09773222]
+ [-0.68846223]
+ [ 0.13855979]
+ [-0.89521773]
+ [-1.737008  ]
+ [-0.76230348]
+ [ 0.24193754]
+ [-1.05766849]
+ [-1.14627799]
+ [-0.67369398]
+ [-1.05766849]
+ [-0.03865922]
+ [ 1.03942306]
+ [-0.95429073]
+ [ 0.86220405]
+ [-1.500716  ]
+ [-1.01336374]
+ [-1.04290024]
+ [ 0.5816073 ]
+ [-0.00912272]
+ [-0.92475423]
+ [ 0.13855979]
+ [-1.16104624]
+ [-0.61462098]
+ [-0.76230348]
+ [-0.92475423]
+ [-0.62938923]
+ [-1.737008  ]
+ [-0.59985273]
+ [-0.26018297]
+ [-0.85091298]
+ [ 0.5816073 ]
+ [-0.68846223]
+ [-1.01336374]
+ [-0.80660823]
+ [-0.18634172]
+ [ 1.94028632]
+ [-0.40786547]
+ [-1.51548425]
+ [-0.70323048]
+ [-0.76230348]
+ [-0.40786547]
+ [ 0.13855979]
+ [-0.88044948]
+ [-0.64415748]
+ [ 0.8769723 ]
+ [-1.29396049]
+ [-1.07243674]
+ [-1.02813199]
+ [-0.45217022]
+ [-1.63363025]
+ [-1.7665445 ]
+ [-0.45217022]
+ [-0.46693847]
+ [ 0.24193754]
+ [-0.59985273]
+ [-1.33826524]
+ [-1.29396049]
+ [ 0.71452155]
+ [-0.30448772]
+ [-1.60409375]
+ [-0.55554798]
+ [-1.42687474]
+ [-1.63363025]
+ [ 1.32001981]
+ [-1.20535099]
+ [-0.80660823]
+ [-1.04290024]
+ [-1.07243674]
+ [-0.95429073]
+ [-1.48594775]
+ [-0.89521773]
+ [-0.86568123]
+ [-1.559789  ]
+ [-0.55554798]
+ [-0.18634172]
+ [-1.10197324]
+ [-0.48170673]
+ [-1.54502075]
+ [-1.500716  ]
+ [ 0.86220405]
+ [-0.31925597]
+ [-1.5893255 ]
+ [-0.30448772]
+ [-0.43740197]
+ [-0.43740197]
+ [-1.29396049]
+ [ 0.16809629]
+ [-0.74753523]
+ [-1.19058274]
+ [-1.08720499]
+ [-2.07667776]
+ [-0.86568123]
+ [-0.74753523]
+ [-0.59985273]
+ [ 3.53525736]
+ [ 0.27147404]
+ [-1.10197324]
+ [ 0.00564553]
+ [-0.82137648]
+ [-0.61462098]
+ [-0.12726872]
+ [-0.43740197]
+ [-0.57031623]
+ [ 0.7883628 ]
+ [ 2.64916234]
+ [ 1.61538482]
+ [-0.30448772]
+ [ 0.02041379]
+ [-0.24541472]
+ [ 0.33054704]
+ [ 0.8769723 ]
+ [ 0.5816073 ]
+ [-0.57031623]
+ [-0.99859549]
+ [ 0.06471854]
+ [-0.59985273]
+ [-0.45217022]
+ [ 0.80313105]
+ [ 1.91074982]
+ [-0.49647498]
+ [-0.62938923]
+ [-0.08296397]
+ [-1.24965574]
+ [-1.60409375]
+ [ 0.06471854]
+ [-0.00912272]
+ [-0.86568123]
+ [-1.45641124]
+ [-0.62938923]
+ [-0.76230348]
+ [-0.18634172]
+ [-0.37832897]
+ [-0.46693847]
+ [ 0.5225343 ]
+ [-1.78131275]
+ [-0.83614473]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>explain what scaled_data0 is</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_vals0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">earthquake_count</span><span class="p">[</span><span class="s2">&quot;mag</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">scaled_data0</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x_vals0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[-3.71188458e-01]
+ [-4.30328284e-01]
+ [-4.59898197e-01]
+ [-4.15543327e-01]
+ [-4.59898197e-01]
+ [-4.89468110e-01]
+ [-5.04253066e-01]
+ [-3.71188458e-01]
+ [-4.74683153e-01]
+ [-3.71188458e-01]
+ [-3.85973414e-01]
+ [-4.15543327e-01]
+ [-3.41618545e-01]
+ [-4.00758371e-01]
+ [-4.15543327e-01]
+ [-4.15543327e-01]
+ [-3.85973414e-01]
+ [-5.04253066e-01]
+ [-4.15543327e-01]
+ [-3.12048632e-01]
+ [-1.05059241e-01]
+ [-9.02742846e-02]
+ [-3.71188458e-01]
+ [-4.30328284e-01]
+ [-4.45113240e-01]
+ [-2.67693762e-01]
+ [-2.23338893e-01]
+ [-2.52908806e-01]
+ [-2.97263675e-01]
+ [-3.41618545e-01]
+ [-3.85973414e-01]
+ [-3.56403501e-01]
+ [-2.82478719e-01]
+ [-2.08553936e-01]
+ [-2.82478719e-01]
+ [-1.64199067e-01]
+ [-3.85973414e-01]
+ [-4.30328284e-01]
+ [-3.26833588e-01]
+ [-3.56403501e-01]
+ [-3.11344586e-02]
+ [-3.41618545e-01]
+ [-1.93768980e-01]
+ [-3.41618545e-01]
+ [-2.82478719e-01]
+ [-1.49414111e-01]
+ [-3.26833588e-01]
+ [-3.85973414e-01]
+ [-3.26833588e-01]
+ [-2.52908806e-01]
+ [-3.56403501e-01]
+ [-4.15543327e-01]
+ [-4.00758371e-01]
+ [-3.41618545e-01]
+ [-4.45113240e-01]
+ [-3.85973414e-01]
+ [-3.41618545e-01]
+ [-2.67693762e-01]
+ [-1.64199067e-01]
+ [-3.56403501e-01]
+ [-3.56403501e-01]
+ [-3.56403501e-01]
+ [-4.74683153e-01]
+ [-2.82478719e-01]
+ [-4.30328284e-01]
+ [-1.64199067e-01]
+ [-3.12048632e-01]
+ [-2.52908806e-01]
+ [-2.67693762e-01]
+ [-3.85973414e-01]
+ [-4.30328284e-01]
+ [-2.67693762e-01]
+ [-3.12048632e-01]
+ [-4.15543327e-01]
+ [-3.26833588e-01]
+ [-3.71188458e-01]
+ [-3.56403501e-01]
+ [-1.63495021e-02]
+ [-3.85973414e-01]
+ [-2.52908806e-01]
+ [-2.38123849e-01]
+ [-3.71188458e-01]
+ [-3.85973414e-01]
+ [-4.74683153e-01]
+ [-1.64199067e-01]
+ [-4.15543327e-01]
+ [-3.85973414e-01]
+ [-4.00758371e-01]
+ [-3.85973414e-01]
+ [-3.56403501e-01]
+ [-3.41618545e-01]
+ [-2.52908806e-01]
+ [-3.12048632e-01]
+ [-4.00758371e-01]
+ [-4.30328284e-01]
+ [-4.00758371e-01]
+ [-2.67693762e-01]
+ [-3.71188458e-01]
+ [-3.26833588e-01]
+ [ 1.15166206e+00]
+ [-7.54893281e-02]
+ [-1.63495021e-02]
+ [ 4.27903238e-02]
+ [-3.26833588e-01]
+ [-4.30328284e-01]
+ [-2.97263675e-01]
+ [-3.85973414e-01]
+ [-2.52908806e-01]
+ [ 4.27903238e-02]
+ [-3.41618545e-01]
+ [-4.00758371e-01]
+ [-3.71188458e-01]
+ [-3.41618545e-01]
+ [-2.08553936e-01]
+ [-2.97263675e-01]
+ [-2.52908806e-01]
+ [-1.64199067e-01]
+ [ 4.41984149e-01]
+ [ 8.71451933e-02]
+ [-1.34629154e-01]
+ [-2.08553936e-01]
+ [-3.41618545e-01]
+ [-2.38123849e-01]
+ [-4.30328284e-01]
+ [-2.97263675e-01]
+ [-4.15543327e-01]
+ [-3.26833588e-01]
+ [-3.71188458e-01]
+ [-1.49414111e-01]
+ [-3.56403501e-01]
+ [-4.00758371e-01]
+ [-3.56403501e-01]
+ [-2.67693762e-01]
+ [ 3.56160997e+00]
+ [-9.02742846e-02]
+ [-2.08553936e-01]
+ [-2.67693762e-01]
+ [-2.08553936e-01]
+ [-2.52908806e-01]
+ [-2.52908806e-01]
+ [-1.93768980e-01]
+ [-1.34629154e-01]
+ [-3.12048632e-01]
+ [-3.26833588e-01]
+ [-2.67693762e-01]
+ [-3.56403501e-01]
+ [-2.97263675e-01]
+ [-2.82478719e-01]
+ [-3.85973414e-01]
+ [-3.71188458e-01]
+ [-3.41618545e-01]
+ [-4.74683153e-01]
+ [-3.71188458e-01]
+ [-3.71188458e-01]
+ [-2.97263675e-01]
+ [-2.82478719e-01]
+ [-4.15543327e-01]
+ [-2.52908806e-01]
+ [-2.38123849e-01]
+ [-3.56403501e-01]
+ [-3.26833588e-01]
+ [-2.82478719e-01]
+ [-4.15543327e-01]
+ [-3.12048632e-01]
+ [-2.97263675e-01]
+ [-2.52908806e-01]
+ [-4.15543327e-01]
+ [-4.15543327e-01]
+ [ 1.31500063e-01]
+ [ 3.23704497e-01]
+ [ 1.61069976e-01]
+ [ 8.71451933e-02]
+ [ 2.80053673e-02]
+ [ 3.82844323e-01]
+ [ 2.49779715e-01]
+ [ 7.37683279e-01]
+ [ 1.90639889e-01]
+ [ 2.20209802e-01]
+ [ 5.45478844e-01]
+ [ 5.75048757e-01]
+ [ 7.82038148e-01]
+ [ 4.27903238e-02]
+ [ 2.64564671e-01]
+ [ 3.38489454e-01]
+ [ 2.05424845e-01]
+ [ 5.75048757e-01]
+ [ 2.80053673e-02]
+ [ 8.55962931e-01]
+ [ 2.05424845e-01]
+ [ 1.16715106e-01]
+ [ 5.75752803e-02]
+ [-3.11344586e-02]
+ [ 7.23602368e-02]
+ [-3.11344586e-02]
+ [ 1.16715106e-01]
+ [-1.63495021e-02]
+ [-6.07043716e-02]
+ [-4.59194151e-02]
+ [-6.07043716e-02]
+ [ 2.49779715e-01]
+ [-2.08553936e-01]
+ [-6.07043716e-02]
+ [ 2.34994758e-01]
+ [-1.63495021e-02]
+ [ 2.20209802e-01]
+ [-7.54893281e-02]
+ [ 8.71451933e-02]
+ [-2.38123849e-01]
+ [-3.26833588e-01]
+ [-2.23338893e-01]
+ [-1.05059241e-01]
+ [-2.52908806e-01]
+ [-1.34629154e-01]
+ [ 7.23602368e-02]
+ [ 1.46285019e-01]
+ [-2.08553936e-01]
+ [-1.64199067e-01]
+ [-3.12048632e-01]
+ [ 4.27903238e-02]
+ [-1.64199067e-01]
+ [-6.07043716e-02]
+ [-3.26833588e-01]
+ [-1.34629154e-01]
+ [-1.63495021e-02]
+ [-3.11344586e-02]
+ [ 3.68059367e-01]
+ [-7.54893281e-02]
+ [-2.23338893e-01]
+ [-1.63495021e-02]
+ [-3.11344586e-02]
+ [ 2.49779715e-01]
+ [-2.67693762e-01]
+ [-7.54893281e-02]
+ [ 1.61069976e-01]
+ [-2.23338893e-01]
+ [ 3.08919541e-01]
+ [-1.64199067e-01]
+ [ 3.93123388e+00]
+ [ 2.49779715e-01]
+ [ 1.31500063e-01]
+ [ 5.30693888e-01]
+ [-6.07043716e-02]
+ [-3.11344586e-02]
+ [-1.05059241e-01]
+ [ 6.53338622e+00]
+ [ 2.73365240e+00]
+ [ 1.06295232e+00]
+ [ 7.52468235e-01]
+ [ 6.78543453e-01]
+ [ 2.20209802e-01]
+ [ 1.46285019e-01]
+ [ 2.49779715e-01]
+ [-4.59194151e-02]
+ [-9.02742846e-02]
+ [-7.54893281e-02]
+ [ 3.53274410e-01]
+ [-2.08553936e-01]
+ [ 8.71451933e-02]
+ [ 1.32204108e-02]
+ [-2.08553936e-01]
+ [ 6.78543453e-01]
+ [ 6.78543453e-01]
+ [-7.54893281e-02]
+ [-9.02742846e-02]
+ [-1.78984024e-01]
+ [-3.11344586e-02]
+ [ 1.90639889e-01]
+ [-1.49414111e-01]
+ [ 1.32204108e-02]
+ [ 1.46285019e-01]
+ [-2.23338893e-01]
+ [ 1.46285019e-01]
+ [ 5.15908931e-01]
+ [ 5.30693888e-01]
+ [-2.82478719e-01]
+ [-1.56454566e-03]
+ [ 1.15166206e+00]
+ [ 2.80053673e-02]
+ [-2.23338893e-01]
+ [-2.23338893e-01]
+ [ 4.34521266e+00]
+ [ 1.90639889e-01]
+ [ 6.04618670e-01]
+ [ 1.31500063e-01]
+ [ 1.16715106e-01]
+ [-3.11344586e-02]
+ [ 2.80053673e-02]
+ [ 7.23602368e-02]
+ [-3.11344586e-02]
+ [-1.78984024e-01]
+ [-1.63495021e-02]
+ [ 3.82844323e-01]
+ [ 1.46285019e-01]
+ [-7.54893281e-02]
+ [ 4.27903238e-02]
+ [-1.49414111e-01]
+ [-1.19844198e-01]
+ [-4.59194151e-02]
+ [ 2.03875945e+00]
+ [ 1.32204108e-02]
+ [-4.59194151e-02]
+ [-1.78984024e-01]
+ [-1.49414111e-01]
+ [-1.78984024e-01]
+ [-3.11344586e-02]
+ [-1.78984024e-01]
+ [-1.93768980e-01]
+ [ 3.97629280e-01]
+ [-1.78984024e-01]
+ [-1.93768980e-01]
+ [-1.93768980e-01]
+ [-1.78984024e-01]
+ [-1.34629154e-01]
+ [-2.67693762e-01]
+ [-1.19844198e-01]
+ [-1.19844198e-01]
+ [-1.34629154e-01]
+ [-1.49414111e-01]
+ [ 6.08983753e+00]
+ [ 7.37683279e-01]
+ [ 4.27199193e-01]
+ [ 1.16715106e-01]
+ [-7.54893281e-02]
+ [-1.56454566e-03]
+ [-2.23338893e-01]
+ [ 2.49779715e-01]
+ [-2.08553936e-01]
+ [-1.34629154e-01]
+ [-2.08553936e-01]
+ [-1.19844198e-01]
+ [-1.19844198e-01]
+ [-1.05059241e-01]
+ [-2.97263675e-01]
+ [ 2.49779715e-01]
+ [ 2.57101788e+00]
+ [ 7.23602368e-02]
+ [-6.07043716e-02]
+ [-7.54893281e-02]
+ [-2.97263675e-01]
+ [-1.05059241e-01]
+ [-1.63495021e-02]
+ [ 2.80053673e-02]
+ [-7.54893281e-02]
+ [-3.11344586e-02]
+ [-4.59194151e-02]
+ [ 1.16715106e-01]
+ [-6.07043716e-02]
+ [-6.07043716e-02]
+ [ 4.27903238e-02]
+ [ 1.61069976e-01]
+ [ 2.64564671e-01]
+ [-1.93768980e-01]
+ [-1.78984024e-01]
+ [-1.64199067e-01]
+ [-2.97263675e-01]
+ [-2.38123849e-01]
+ [-2.08553936e-01]
+ [ 2.42316832e+00]
+ [-3.11344586e-02]
+ [ 7.23602368e-02]
+ [-6.07043716e-02]
+ [-1.05059241e-01]
+ [ 2.05424845e-01]
+ [ 4.12414236e-01]
+ [-1.63495021e-02]
+ [-1.93768980e-01]
+ [-3.12048632e-01]
+ [-1.63495021e-02]
+ [-3.11344586e-02]
+ [-1.63495021e-02]
+ [-1.34629154e-01]
+ [-2.38123849e-01]
+ [-3.26833588e-01]
+ [-2.08553936e-01]
+ [ 1.90639889e-01]
+ [-2.97263675e-01]
+ [-2.67693762e-01]
+ [-4.59194151e-02]
+ [-2.23338893e-01]
+ [-2.08553936e-01]
+ [-1.34629154e-01]
+ [-7.54893281e-02]
+ [-1.05059241e-01]
+ [-2.38123849e-01]
+ [-3.41618545e-01]
+ [-1.34629154e-01]
+ [-2.52908806e-01]
+ [ 2.20139397e+00]
+ [ 4.56769105e-01]
+ [ 7.28741900e+00]
+ [ 7.64225796e+00]
+ [ 1.15166206e+00]
+ [ 6.19403627e-01]
+ [ 2.79349628e-01]
+ [ 3.08919541e-01]
+ [ 5.01123975e-01]
+ [-9.02742846e-02]
+ [-1.78984024e-01]
+ [-2.82478719e-01]
+ [-7.54893281e-02]
+ [ 6.34188583e-01]
+ [-1.78984024e-01]
+ [-2.23338893e-01]
+ [-9.02742846e-02]
+ [ 7.23602368e-02]
+ [ 1.31500063e-01]
+ [ 8.71451933e-02]
+ [ 7.23602368e-02]
+ [ 4.90704101e+00]
+ [ 7.23602368e-02]
+ [-9.02742846e-02]
+ [-2.23338893e-01]
+ [-1.78984024e-01]
+ [-1.93768980e-01]
+ [-1.78984024e-01]
+ [-1.05059241e-01]
+ [ 2.06832936e+00]
+ [-3.11344586e-02]
+ [-2.52908806e-01]
+ [-9.02742846e-02]
+ [-1.78984024e-01]
+ [-2.23338893e-01]
+ [-1.78984024e-01]
+ [-1.19844198e-01]
+ [-3.12048632e-01]
+ [-1.93768980e-01]
+ [-2.23338893e-01]
+ [ 1.75854932e-01]
+ [ 3.82844323e-01]
+ [-1.64199067e-01]
+ [-2.52908806e-01]
+ [ 3.82844323e-01]
+ [ 3.68059367e-01]
+ [-1.93768980e-01]
+ [ 1.32204108e-02]
+ [-1.49414111e-01]
+ [-2.82478719e-01]
+ [-2.67693762e-01]
+ [-2.23338893e-01]
+ [-2.82478719e-01]
+ [-1.78984024e-01]
+ [-2.38123849e-01]
+ [ 1.32204108e-02]
+ [-1.19844198e-01]
+ [-2.67693762e-01]
+ [-1.05059241e-01]
+ [-1.05059241e-01]
+ [-1.63495021e-02]
+ [-1.78984024e-01]
+ [-1.78984024e-01]
+ [-9.02742846e-02]
+ [-1.49414111e-01]
+ [-1.78984024e-01]
+ [-9.02742846e-02]
+ [ 1.13687710e+00]
+ [ 2.79349628e-01]
+ [ 3.08919541e-01]
+ [-2.97263675e-01]
+ [ 1.90639889e-01]
+ [-2.38123849e-01]
+ [-4.00758371e-01]
+ [ 3.23704497e-01]
+ [ 2.34994758e-01]
+ [ 1.16715106e-01]
+ [-2.08553936e-01]
+ [-1.78984024e-01]
+ [-2.52908806e-01]
+ [-1.63495021e-02]
+ [ 1.32204108e-02]
+ [-2.67693762e-01]
+ [-1.78984024e-01]
+ [-7.54893281e-02]
+ [ 1.01859745e+00]
+ [ 4.27903238e-02]
+ [-4.59194151e-02]
+ [ 5.45478844e-01]
+ [-1.19844198e-01]
+ [ 6.56295614e+00]
+ [ 5.15908931e-01]
+ [ 1.01930150e-01]
+ [-1.05059241e-01]
+ [-2.67693762e-01]
+ [ 2.80053673e-02]
+ [-1.19844198e-01]
+ [-1.34629154e-01]
+ [ 8.71451933e-02]
+ [-2.97263675e-01]
+ [-2.38123849e-01]
+ [-6.07043716e-02]
+ [-3.26833588e-01]
+ [-3.71188458e-01]
+ [-1.05059241e-01]
+ [-3.85973414e-01]
+ [-4.59194151e-02]
+ [-2.52908806e-01]
+ [-3.11344586e-02]
+ [-2.38123849e-01]
+ [-3.12048632e-01]
+ [ 4.56769105e-01]
+ [-1.05059241e-01]
+ [-2.82478719e-01]
+ [-2.97263675e-01]
+ [-2.97263675e-01]
+ [-2.82478719e-01]
+ [ 8.71451933e-02]
+ [ 1.31500063e-01]
+ [-1.49414111e-01]
+ [-3.71188458e-01]
+ [-2.38123849e-01]
+ [-2.97263675e-01]
+ [-3.71188458e-01]
+ [-4.00758371e-01]
+ [-1.78984024e-01]
+ [-2.67693762e-01]
+ [-2.67693762e-01]
+ [-2.38123849e-01]
+ [-2.38123849e-01]
+ [ 5.75752803e-02]
+ [-3.12048632e-01]
+ [-2.82478719e-01]
+ [-2.08553936e-01]
+ [-3.26833588e-01]
+ [-4.00758371e-01]
+ [-4.00758371e-01]
+ [-3.56403501e-01]
+ [-2.23338893e-01]
+ [-2.52908806e-01]
+ [ 2.49709310e+00]
+ [ 3.08919541e-01]
+ [-1.49414111e-01]
+ [-1.64199067e-01]
+ [-3.12048632e-01]
+ [-2.38123849e-01]
+ [-2.52908806e-01]
+ [-1.64199067e-01]
+ [-2.08553936e-01]
+ [ 5.89833714e-01]
+ [ 1.01930150e-01]
+ [-2.08553936e-01]
+ [-2.23338893e-01]
+ [-3.26833588e-01]
+ [-3.41618545e-01]
+ [-3.71188458e-01]
+ [-2.52908806e-01]
+ [-4.59194151e-02]
+ [-2.38123849e-01]
+ [-3.12048632e-01]
+ [ 2.80053673e-02]
+ [ 1.46285019e-01]
+ [-1.19844198e-01]
+ [-3.12048632e-01]
+ [-2.82478719e-01]
+ [-2.23338893e-01]
+ [-2.52908806e-01]
+ [-7.54893281e-02]
+ [-3.56403501e-01]
+ [-6.07043716e-02]
+ [-2.52908806e-01]
+ [-3.26833588e-01]
+ [-3.71188458e-01]
+ [-3.41618545e-01]
+ [-3.56403501e-01]
+ [-9.02742846e-02]
+ [-2.08553936e-01]
+ [-2.23338893e-01]
+ [-3.26833588e-01]
+ [-2.82478719e-01]
+ [-3.11344586e-02]
+ [-3.12048632e-01]
+ [-3.12048632e-01]
+ [-4.00758371e-01]
+ [-2.82478719e-01]
+ [-1.78984024e-01]
+ [-3.56403501e-01]
+ [-3.85973414e-01]
+ [-3.41618545e-01]
+ [-4.59898197e-01]
+ [ 6.48973540e-01]
+ [-2.97263675e-01]
+ [-2.82478719e-01]
+ [-2.08553936e-01]
+ [-2.52908806e-01]
+ [-2.52908806e-01]
+ [-4.15543327e-01]
+ [-2.82478719e-01]
+ [-2.08553936e-01]
+ [-6.07043716e-02]
+ [-1.56454566e-03]
+ [-1.49414111e-01]
+ [-3.26833588e-01]
+ [-1.64199067e-01]
+ [-2.67693762e-01]
+ [-2.52908806e-01]
+ [-2.82478719e-01]
+ [-3.85973414e-01]
+ [-3.71188458e-01]
+ [-2.52908806e-01]
+ [ 5.75752803e-02]
+ [ 4.27903238e-02]
+ [-4.59194151e-02]
+ [-9.02742846e-02]
+ [-1.19844198e-01]
+ [ 5.75752803e-02]
+ [ 9.32774300e+00]
+ [ 1.35865145e+00]
+ [ 1.35865145e+00]
+ [ 1.16715106e-01]
+ [-1.56454566e-03]
+ [-1.49414111e-01]
+ [-3.11344586e-02]
+ [-2.52908806e-01]
+ [ 1.46285019e-01]
+ [-1.19844198e-01]
+ [-2.67693762e-01]
+ [-1.64199067e-01]
+ [ 3.08919541e-01]
+ [-7.54893281e-02]
+ [-2.23338893e-01]
+ [-2.52908806e-01]
+ [-1.93768980e-01]
+ [-2.97263675e-01]
+ [-2.23338893e-01]
+ [-2.52908806e-01]
+ [-4.45113240e-01]
+ [-2.97263675e-01]
+ [-2.67693762e-01]
+ [-3.26833588e-01]
+ [-2.82478719e-01]
+ [-2.82478719e-01]
+ [-3.85973414e-01]
+ [-2.08553936e-01]
+ [ 5.30693888e-01]
+ [-3.12048632e-01]
+ [-2.52908806e-01]
+ [-3.71188458e-01]
+ [-3.56403501e-01]
+ [-3.12048632e-01]
+ [-1.78984024e-01]
+ [-2.82478719e-01]
+ [-2.97263675e-01]
+ [-2.38123849e-01]
+ [-3.26833588e-01]
+ [-3.56403501e-01]
+ [-2.67693762e-01]
+ [-3.26833588e-01]
+ [-1.64199067e-01]
+ [-4.00758371e-01]
+ [-2.67693762e-01]
+ [-1.78984024e-01]
+ [-3.85973414e-01]
+ [-1.78984024e-01]
+ [-3.56403501e-01]
+ [-3.71188458e-01]
+ [-2.67693762e-01]
+ [-1.49414111e-01]
+ [-1.93768980e-01]
+ [-2.23338893e-01]
+ [-2.23338893e-01]
+ [-4.15543327e-01]
+ [-3.12048632e-01]
+ [-3.71188458e-01]
+ [-3.85973414e-01]
+ [-4.15543327e-01]
+ [-3.56403501e-01]
+ [-6.07043716e-02]
+ [-3.41618545e-01]
+ [-4.00758371e-01]
+ [-4.45113240e-01]
+ [-4.00758371e-01]
+ [-2.82478719e-01]
+ [-4.30328284e-01]
+ [-2.38123849e-01]
+ [-3.12048632e-01]
+ [-2.82478719e-01]
+ [-3.26833588e-01]
+ [-3.26833588e-01]
+ [-4.00758371e-01]
+ [-1.93768980e-01]
+ [-2.52908806e-01]
+ [-2.23338893e-01]
+ [-6.07043716e-02]
+ [-2.38123849e-01]
+ [-4.74683153e-01]
+ [ 4.27903238e-02]
+ [-2.23338893e-01]
+ [-3.71188458e-01]
+ [-2.97263675e-01]
+ [-2.97263675e-01]
+ [-3.26833588e-01]
+ [-2.82478719e-01]
+ [-2.82478719e-01]
+ [-2.82478719e-01]
+ [-3.26833588e-01]
+ [-3.41618545e-01]
+ [-3.56403501e-01]
+ [-2.08553936e-01]
+ [-3.41618545e-01]
+ [-3.85973414e-01]
+ [-3.71188458e-01]
+ [-2.82478719e-01]
+ [-2.52908806e-01]
+ [-4.15543327e-01]
+ [-4.15543327e-01]
+ [-3.85973414e-01]
+ [-3.85973414e-01]
+ [-3.41618545e-01]
+ [-2.38123849e-01]
+ [-3.56403501e-01]
+ [-2.23338893e-01]
+ [-3.12048632e-01]
+ [-4.74683153e-01]
+ [-2.97263675e-01]
+ [-3.71188458e-01]
+ [-1.19844198e-01]
+ [ 1.53156504e+01]
+ [ 1.31500063e-01]
+ [-1.64199067e-01]
+ [-1.78984024e-01]
+ [ 2.80053673e-02]
+ [-1.78984024e-01]
+ [-2.67693762e-01]
+ [-2.52908806e-01]
+ [-3.41618545e-01]
+ [ 2.94134584e-01]
+ [ 4.28607284e+00]
+ [ 1.16644702e+00]
+ [ 1.61069976e-01]
+ [ 4.27903238e-02]
+ [ 1.16715106e-01]
+ [ 6.34188583e-01]
+ [-1.63495021e-02]
+ [ 4.86339018e-01]
+ [-6.07043716e-02]
+ [-1.56454566e-03]
+ [-2.23338893e-01]
+ [-1.34629154e-01]
+ [-3.12048632e-01]
+ [ 4.71554062e-01]
+ [ 5.89833714e-01]
+ [-1.19844198e-01]
+ [-1.05059241e-01]
+ [-2.23338893e-01]
+ [-3.85973414e-01]
+ [-3.71188458e-01]
+ [-1.78984024e-01]
+ [-2.38123849e-01]
+ [-2.23338893e-01]
+ [-3.12048632e-01]
+ [-3.41618545e-01]
+ [-2.67693762e-01]
+ [-1.19844198e-01]
+ [-3.56403501e-01]
+ [-2.23338893e-01]
+ [-2.82478719e-01]
+ [-4.45113240e-01]
+ [-3.71188458e-01]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_earthquake_data</span> <span class="o">=</span> <span class="n">max_mag</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">merged_earthquake_data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;USGS</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">merged_earthquake_data</span><span class="p">[</span><span class="s2">&quot;scaled_earthquake_count&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scaled_data0</span>
+<span class="n">merged_earthquake_data</span><span class="p">[</span><span class="s2">&quot;scaled_max_mag&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scaled_data</span>
+<span class="n">merged_earthquake_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>scaled_earthquake_count</th>
+      <th>scaled_max_mag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1960-01</td>
+      <td>-0.371188</td>
+      <td>0.433925</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1960-02</td>
+      <td>-0.430328</td>
+      <td>-1.353033</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1960-03</td>
+      <td>-0.459898</td>
+      <td>-1.530252</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1960-04</td>
+      <td>-0.415543</td>
+      <td>-0.688462</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1960-05</td>
+      <td>-0.459898</td>
+      <td>-1.042900</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged_earthquake_data</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">merged_earthquake_data</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">])</span>
+
+<span class="c1"># Create a Plotly figure</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">merged_earthquake_data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;scaled_earthquake_count&#39;</span><span class="p">,</span> <span class="s1">&#39;scaled_max_mag&#39;</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="s1">&#39;Value&#39;</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;scaled_earthquake_count vs scaled_max_mag&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">))</span>
+<span class="c1"># Add interactivity</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">rangeslider_visible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">dragmode</span><span class="o">=</span><span class="s1">&#39;pan&#39;</span><span class="p">,</span> <span class="n">hovermode</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+
+<span class="c1"># Show the interactive plot</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>Now we find the 10 largest values of both dataframes</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scaled_earthquake_count</span> <span class="o">=</span> <span class="n">merged_earthquake_data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">scaled_earthquake_count</span> <span class="o">=</span> <span class="n">scaled_earthquake_count</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="s1">&#39;scaled_earthquake_count&#39;</span><span class="p">)</span>
+<span class="n">scaled_earthquake_count</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>scaled_earthquake_count</th>
+      <th>scaled_max_mag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>714</th>
+      <td>2019-07-01</td>
+      <td>15.315650</td>
+      <td>3.535257</td>
+    </tr>
+    <tr>
+      <th>603</th>
+      <td>2010-04-01</td>
+      <td>9.327743</td>
+      <td>3.682940</td>
+    </tr>
+    <tr>
+      <th>390</th>
+      <td>1992-07-01</td>
+      <td>7.642258</td>
+      <td>1.423398</td>
+    </tr>
+    <tr>
+      <th>389</th>
+      <td>1992-06-01</td>
+      <td>7.287419</td>
+      <td>3.830622</td>
+    </tr>
+    <tr>
+      <th>477</th>
+      <td>1999-10-01</td>
+      <td>6.562956</td>
+      <td>3.535257</td>
+    </tr>
+    <tr>
+      <th>244</th>
+      <td>1980-05-01</td>
+      <td>6.533386</td>
+      <td>2.206115</td>
+    </tr>
+    <tr>
+      <th>318</th>
+      <td>1986-07-01</td>
+      <td>6.089838</td>
+      <td>2.501480</td>
+    </tr>
+    <tr>
+      <th>408</th>
+      <td>1994-01-01</td>
+      <td>4.907041</td>
+      <td>2.944527</td>
+    </tr>
+    <tr>
+      <th>280</th>
+      <td>1983-05-01</td>
+      <td>4.345213</td>
+      <td>2.944527</td>
+    </tr>
+    <tr>
+      <th>724</th>
+      <td>2020-05-01</td>
+      <td>4.286073</td>
+      <td>2.649162</td>
+    </tr>
+    <tr>
+      <th>237</th>
+      <td>1979-10-01</td>
+      <td>3.931234</td>
+      <td>2.501480</td>
+    </tr>
+    <tr>
+      <th>133</th>
+      <td>1971-02-01</td>
+      <td>3.561610</td>
+      <td>2.796845</td>
+    </tr>
+    <tr>
+      <th>245</th>
+      <td>1980-06-01</td>
+      <td>2.733652</td>
+      <td>2.353797</td>
+    </tr>
+    <tr>
+      <th>334</th>
+      <td>1987-11-01</td>
+      <td>2.571018</td>
+      <td>2.796845</td>
+    </tr>
+    <tr>
+      <th>527</th>
+      <td>2003-12-01</td>
+      <td>2.497093</td>
+      <td>2.649162</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">scaled_earthquake_count</span><span class="p">[</span><span class="s1">&#39;scaled_earthquake_count&#39;</span><span class="p">],</span> <span class="n">scaled_earthquake_count</span><span class="p">[</span><span class="s1">&#39;scaled_max_mag&#39;</span><span class="p">])</span>
+<span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">scaled_earthquake_count</span><span class="p">[</span><span class="s1">&#39;scaled_earthquake_count&#39;</span><span class="p">],</span> <span class="n">scaled_earthquake_count</span><span class="p">[</span><span class="s1">&#39;scaled_max_mag&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 1 specifies a linear fit</span>
+
+<span class="c1"># Create the best-fit line equation</span>
+<span class="n">best_fit_line</span> <span class="o">=</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scaled_earthquake_count</span><span class="p">[</span><span class="s1">&#39;scaled_earthquake_count&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="n">intercept</span>
+
+<span class="c1"># Plot the best-fit line</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">scaled_earthquake_count</span><span class="p">[</span><span class="s1">&#39;scaled_earthquake_count&#39;</span><span class="p">],</span> <span class="n">best_fit_line</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Line of Best Fit&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Normalized Earthquake Counts (Top 15)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Normalized Earthquake Magnitudes (Top 15)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Normalized Earthquake Magnitudes (Top 15)&#39;)
+</pre></div>
+</div>
+<img alt="_images/318b53726fecafb723fd67ba54dc486da7809308f1a15efbd7077345bc461a3b.png" src="_images/318b53726fecafb723fd67ba54dc486da7809308f1a15efbd7077345bc461a3b.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scaled_max_mag</span> <span class="o">=</span> <span class="n">merged_earthquake_data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">scaled_max_mag</span> <span class="o">=</span> <span class="n">scaled_max_mag</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="s1">&#39;scaled_max_mag&#39;</span><span class="p">)</span>
+<span class="n">scaled_max_mag</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>scaled_earthquake_count</th>
+      <th>scaled_max_mag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>389</th>
+      <td>1992-06-01</td>
+      <td>7.287419</td>
+      <td>3.830622</td>
+    </tr>
+    <tr>
+      <th>603</th>
+      <td>2010-04-01</td>
+      <td>9.327743</td>
+      <td>3.682940</td>
+    </tr>
+    <tr>
+      <th>477</th>
+      <td>1999-10-01</td>
+      <td>6.562956</td>
+      <td>3.535257</td>
+    </tr>
+    <tr>
+      <th>714</th>
+      <td>2019-07-01</td>
+      <td>15.315650</td>
+      <td>3.535257</td>
+    </tr>
+    <tr>
+      <th>357</th>
+      <td>1989-10-01</td>
+      <td>2.423168</td>
+      <td>3.239892</td>
+    </tr>
+    <tr>
+      <th>280</th>
+      <td>1983-05-01</td>
+      <td>4.345213</td>
+      <td>2.944527</td>
+    </tr>
+    <tr>
+      <th>408</th>
+      <td>1994-01-01</td>
+      <td>4.907041</td>
+      <td>2.944527</td>
+    </tr>
+    <tr>
+      <th>99</th>
+      <td>1968-04-01</td>
+      <td>1.151662</td>
+      <td>2.796845</td>
+    </tr>
+    <tr>
+      <th>133</th>
+      <td>1971-02-01</td>
+      <td>3.561610</td>
+      <td>2.796845</td>
+    </tr>
+    <tr>
+      <th>334</th>
+      <td>1987-11-01</td>
+      <td>2.571018</td>
+      <td>2.796845</td>
+    </tr>
+    <tr>
+      <th>527</th>
+      <td>2003-12-01</td>
+      <td>2.497093</td>
+      <td>2.649162</td>
+    </tr>
+    <tr>
+      <th>724</th>
+      <td>2020-05-01</td>
+      <td>4.286073</td>
+      <td>2.649162</td>
+    </tr>
+    <tr>
+      <th>189</th>
+      <td>1975-10-01</td>
+      <td>0.116715</td>
+      <td>2.501480</td>
+    </tr>
+    <tr>
+      <th>237</th>
+      <td>1979-10-01</td>
+      <td>3.931234</td>
+      <td>2.501480</td>
+    </tr>
+    <tr>
+      <th>318</th>
+      <td>1986-07-01</td>
+      <td>6.089838</td>
+      <td>2.501480</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">earthquake_count_dates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scaled_earthquake_count</span><span class="p">[</span><span class="s2">&quot;Date&quot;</span><span class="p">])</span>
+<span class="n">max_mag_dates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scaled_max_mag</span><span class="p">[</span><span class="s2">&quot;Date&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;2019-07-01T00:00:00.000000000&#39; &#39;2010-04-01T00:00:00.000000000&#39;
+ &#39;1992-07-01T00:00:00.000000000&#39; &#39;1992-06-01T00:00:00.000000000&#39;
+ &#39;1999-10-01T00:00:00.000000000&#39; &#39;1980-05-01T00:00:00.000000000&#39;
+ &#39;1986-07-01T00:00:00.000000000&#39; &#39;1994-01-01T00:00:00.000000000&#39;
+ &#39;1983-05-01T00:00:00.000000000&#39; &#39;2020-05-01T00:00:00.000000000&#39;
+ &#39;1979-10-01T00:00:00.000000000&#39; &#39;1971-02-01T00:00:00.000000000&#39;
+ &#39;1980-06-01T00:00:00.000000000&#39; &#39;1987-11-01T00:00:00.000000000&#39;
+ &#39;2003-12-01T00:00:00.000000000&#39;]
+[&#39;1992-06-01T00:00:00.000000000&#39; &#39;2010-04-01T00:00:00.000000000&#39;
+ &#39;1999-10-01T00:00:00.000000000&#39; &#39;2019-07-01T00:00:00.000000000&#39;
+ &#39;1989-10-01T00:00:00.000000000&#39; &#39;1983-05-01T00:00:00.000000000&#39;
+ &#39;1994-01-01T00:00:00.000000000&#39; &#39;1968-04-01T00:00:00.000000000&#39;
+ &#39;1971-02-01T00:00:00.000000000&#39; &#39;1987-11-01T00:00:00.000000000&#39;
+ &#39;2003-12-01T00:00:00.000000000&#39; &#39;2020-05-01T00:00:00.000000000&#39;
+ &#39;1975-10-01T00:00:00.000000000&#39; &#39;1979-10-01T00:00:00.000000000&#39;
+ &#39;1986-07-01T00:00:00.000000000&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">jaccard_similarity</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="n">intersection</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+    <span class="n">union</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+    <span class="n">similarity</span> <span class="o">=</span> <span class="n">intersection</span> <span class="o">/</span> <span class="n">union</span>
+    <span class="n">percent_similarity</span> <span class="o">=</span> <span class="n">similarity</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="k">return</span> <span class="n">percent_similarity</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">jaccard_similarity</span><span class="p">(</span><span class="n">earthquake_count_dates</span><span class="p">,</span> <span class="n">max_mag_dates</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>66.66666666666666
+</pre></div>
+</div>
+</div>
+</div>
+<p>explain what 2/3rds jaccard similarity means</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="data_comparisons.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Historical Data Analysis</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="earthquake_time_series.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Earthquake Time Series</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
