@@ -35,19 +35,19 @@ We use the following earthquake-related data to compare ETAS and USGS data:
 - Coordinates  
 - Magnitude  
 - Date & Time
-- Energy
+- Energy (converted from Magnitude)
 
 # Trends Within USGS
 ## Introduction to the USGS Dataset
-The United States Geological Survey (USGS) is a catalog on earthquakes. We filter the dataset based on magnitude > 3 and perform several other filters based on location.
+The United States Geological Survey (USGS) is a catalog on earthquakes. We filter the dataset based on magnitude > 3 and perform several other filters based on location to accurately cover Southern California.
 
 ### Data Collection:
 We observe trends within the following about USGS data:
 - Earthquakes Before/After large events  
 - Time between large events  
 - Earthquake Locations during large events
+- Energy shifts
 
 # References
 John Rundle (and others) for developing the ETAS model
 Geoffrey Fox for his energy conversion formula and guidance
-Other references
